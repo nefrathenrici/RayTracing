@@ -1,7 +1,7 @@
-// Code for the basic vector class.
+// Code for the basic vector class. Will be used for rays, colors, and points.
 
-#ifndef VEC3_H
-#define VEC3_H
+#ifndef VEC3_HPP_
+#define VEC3_HPP_
 
 #include <cmath>
 #include <iostream>
@@ -10,33 +10,36 @@ using std::sqrt;
 
 class vec3 {
     public:
+        // x,y,z coordinate
+        double e[3];
+
         // Constructors
-        vec3() : e{0,0,0} {}
+        vec3() : e{0, 0, 0} {}
         vec3(double e0, double e1, double e2) : e{e0, e1, e2} {}
 
-        double x() const { 
-            return e[0]; 
+        double x() const {
+            return e[0];
         }
-        double y() const { 
-            return e[1]; 
+        double y() const {
+            return e[1];
         }
-        double z() const { 
-            return e[2]; 
+        double z() const {
+            return e[2];
         }
-        
+
         // Negation
-        vec3 operator-() const { 
-            return vec3(-e[0], -e[1], -e[2]); 
+        vec3 operator-() const {
+            return vec3(-e[0], -e[1], -e[2]);
         }
 
         // Indexing
-        double operator[](int i) const { 
-            return e[i]; 
+        double operator[](int i) const {
+            return e[i];
         }
-        
+
         // Referencing
-        double& operator[](int i) { 
-            return e[i]; 
+        double& operator[](int i) {
+            return e[i];
         }
 
         vec3& operator+=(const vec3 &v) {
@@ -64,9 +67,6 @@ class vec3 {
         double length_squared() const {
             return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
         }
-
-    public:
-        double e[3];
 };
 
 // Type aliases for vec3
@@ -129,4 +129,4 @@ inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
 
-#endif
+#endif  // VEC3_HPP_

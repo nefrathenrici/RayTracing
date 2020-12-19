@@ -1,10 +1,10 @@
 // Code for the RGB color class (mostly inherited from vec3.hpp)
-#ifndef COLOR_H
-#define COLOR_H
-
-#include "vec3.hpp"
+#ifndef COLOR_HPP_
+#define COLOR_HPP_
 
 #include <iostream>
+
+#include "vec3.hpp"
 
 void write_color(std::ostream &out, color pixel_color) {
     // Write the translated [0,255] value of each color component.
@@ -13,4 +13,4 @@ void write_color(std::ostream &out, color pixel_color) {
         << static_cast<int>(255.999 * pixel_color.z()) << '\n';
 }
 
-#endif
+#endif  // COLOR_HPP_
