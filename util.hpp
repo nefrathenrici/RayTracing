@@ -4,8 +4,7 @@
 #include <cmath>
 #include <limits>
 #include <memory>
-#include "ray.hpp"
-#include "vec3.hpp"
+#include <random>
 
 // Usings
 using std::shared_ptr;
@@ -22,8 +21,9 @@ inline double degrees_to_radians(double degrees) {
 }
 
 inline double random_double() {
-    // Returns a random real in [0,1).
-    return rand() / (RAND_MAX + 1.0);
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
 }
 
 inline double random_double(double min, double max) {
@@ -36,5 +36,9 @@ inline double clamp(double x, double min, double max) {
     if (x > max) return max;
     return x;
 }
+
+// Need to include after bc of random_double
+#include "ray.hpp"
+#include "vec3.hpp"
 
 #endif  // UTIL_HPP_
