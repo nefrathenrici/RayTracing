@@ -1,6 +1,7 @@
 #ifndef SPHERE_HPP_
 #define SPHERE_HPP_
 
+#include <memory>
 #include "hittable.hpp"
 #include "vec3.hpp"
 
@@ -8,8 +9,8 @@ class sphere : public hittable {
     public:
         sphere() {}
         sphere(point3 cen, double r, shared_ptr<material> m)
-            : center(cen), radius(r), mat_ptr(m) {};
-        
+            : center(cen), radius(r), mat_ptr(m) {}
+
         virtual ~sphere() {}
 
         virtual bool hit(

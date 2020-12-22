@@ -1,6 +1,7 @@
 #ifndef HITTABLE_HPP_
 #define HITTABLE_HPP_
 
+#include <memory>
 #include "ray.hpp"
 #include "util.hpp"
 
