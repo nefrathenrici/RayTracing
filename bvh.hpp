@@ -19,7 +19,7 @@ class bvh_node : public hittable {
         bvh_node(const std::vector<shared_ptr<hittable>>& src_objects, 
              size_t start, size_t end, double time0, double time1);
              
-        virtual ~bvh_node() = default
+        virtual ~bvh_node() = default;
     
         virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
