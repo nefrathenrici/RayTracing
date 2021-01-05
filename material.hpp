@@ -13,7 +13,7 @@ class material {
 class lambertian : public material {
     public:
         lambertian(const color& a) : albedo(a) {}
-        virtual ~lambertian() {}
+        virtual ~lambertian() = default
 
         bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const {
             auto scatter_direction = rec.normal + random_unit_vector();
@@ -28,7 +28,7 @@ class lambertian : public material {
 class metal : public material {
     public:
         metal(const color& a, double f) : albedo(a), fuzz(f < 1 ? f : 1) {}
-        virtual ~metal() {}
+        virtual ~metal() {} = default
 
         virtual bool scatter(
             const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
@@ -46,7 +46,8 @@ class metal : public material {
 class dielectric : public material {
     public:
         dielectric(double index_of_refraction) : ir(index_of_refraction) {}
-        virtual ~dielectric() {}
+        
+        virtual ~dielectric() = default
 
         virtual bool scatter(
             const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
