@@ -9,6 +9,7 @@ OBJS := main.o \
 		hittable_list.o \
 		material.o \
 		ray.o \
+		sphere.o \
 		vec3.o		
 
 all: main
@@ -25,20 +26,23 @@ aabb.o: aabb.cpp aabb.hpp
 bvh.o: bvh.cpp bvh.hpp
 	$(CXX) $(CXXFLAGS) -c bvh.cpp
 
+camera.o: camera.cpp camera.hpp
+	$(CXX) $(CXXFLAGS) -c camera.cpp
+
 hittable.o: hittable.cpp hittable.hpp
 	$(CXX) $(CXXFLAGS) -c hittable.cpp
 
 hittable_list.o: hittable_list.cpp hittable_list.hpp
 	$(CXX) $(CXXFLAGS) -c hittable_list.cpp
 
-camera.o: camera.cpp camera.hpp
-	$(CXX) $(CXXFLAGS) -c camera.cpp
-
 material.o: material.cpp material.hpp
 	$(CXX) $(CXXFLAGS) -c material.cpp
 
 ray.o: ray.cpp ray.hpp
 	$(CXX) $(CXXFLAGS) -c ray.cpp
+
+sphere.o: sphere.cpp sphere.hpp
+	$(CXX) $(CXXFLAGS) -c sphere.cpp
 
 vec3.o: vec3.cpp vec3.hpp
 	$(CXX) $(CXXFLAGS) -c vec3.cpp
