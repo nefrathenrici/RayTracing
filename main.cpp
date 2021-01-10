@@ -1,6 +1,6 @@
 // Code adapted from https://raytracing.github.io/books/RayTracingInOneWeekend.html
 #include <iostream>
-#include "bvh.hpp"
+// #include "bvh.hpp"
 #include "camera.hpp"
 #include "color.hpp"
 #include "hittable_list.hpp"
@@ -8,8 +8,8 @@
 #include "sphere.hpp"
 #include "ray.hpp"
 #include "util.hpp"
-#include "vec3.hpp"
-
+// #include "vec3.hpp"
+ 
 
 
 color ray_color(const ray& r, const hittable& world, size_t depth) {
@@ -38,10 +38,10 @@ hittable_list random_scene() {
     auto sphere_material_r = make_shared<metal>(color(0.8, 0.5, 0.5),0.0);
 
     world.add(make_shared<sphere>(point3( 0.0, -1000.5, 0.0), 1000.0, ground_material));
-    world.add(make_shared<sphere>(point3( 0.0, 1000.5, 0.0), 1000.0, ground_material));
-    // world.add(make_shared<sphere>(point3(-1,0,0),0.5,sphere_material_r));
-    // world.add(make_shared<sphere>(point3(0,0,0),0.5,sphere_material_g));
-    // world.add(make_shared<sphere>(point3(1,0,0),0.5,sphere_material_b));
+    // world.add(make_shared<sphere>(point3( 0.0, 1000.5, 0.0), 1000.0, ground_material));
+    world.add(make_shared<sphere>(point3(-1,0,0),0.5,sphere_material_r));
+    world.add(make_shared<sphere>(point3(0,0,0),0.5,sphere_material_g));
+    world.add(make_shared<sphere>(point3(1,0,0),0.5,sphere_material_b));
 
     return world;
 }
