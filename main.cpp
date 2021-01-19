@@ -29,12 +29,12 @@ hittable_list test_scene() {
     hittable_list world;
 
     // Test scene
-    auto ground_material = make_shared<metal>(color(0.5, 0.5, 0.5),0.0);
+    auto ground_checker = make_shared<checker>(color(0.2, 0.2, 0.2),color(0.7, 0.7, 0.7));
     auto sphere_material_b = make_shared<lambertian>(color(0.5, 0.5, 0.8));
     auto sphere_material_g = make_shared<metal>(color(0.5, 0.8, 0.5),0.0);
     auto sphere_material_r = make_shared<metal>(color(0.8, 0.5, 0.5),0.0);
 
-    world.add(make_shared<sphere>(point3( 0.0, -1000.5, 0.0), 1000.0, ground_material));
+    world.add(make_shared<sphere>(point3( 0.0, -1000.5, 0.0), 1000.0, make_shared<lambertian>(ground_checker)));
     world.add(make_shared<sphere>(point3(-1.5,0,0),0.5,sphere_material_r));
     world.add(make_shared<sphere>(point3(-0.5,0,0),0.5,sphere_material_g));
     world.add(make_shared<sphere>(point3(0.5,0,0),0.5,sphere_material_b));
@@ -47,7 +47,7 @@ int main() {
     // Image
 
     const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 400;
+    const int image_width = 300;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
     const int samples_per_pixel = 50;
     const int max_depth = 50;
