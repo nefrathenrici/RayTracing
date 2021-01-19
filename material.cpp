@@ -1,5 +1,4 @@
 // material.cpp
-
 #include "material.hpp"
 
 // Lambertian class
@@ -55,3 +54,20 @@ double dielectric::reflectance(double cosine, double ref_idx) {
     r0 = r0*r0;
     return r0 + (1-r0)*pow((1 - cosine),5);
 }
+
+// Lights!
+diffuse_light::diffuse_light(shared_ptr<texture> _texture)
+    : emit(_texture) {}
+
+diffuse_light::diffuse_light(color c) 
+    : emit(make_shared<solid_color>(c)) {}
+
+bool diffuse_light::scatter(
+    const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const {
+        return false;
+}
+
+color diffuse_light::emitted(double u, double v, const point3& p) const {
+    return emit->value(u,v,p);
+}
+

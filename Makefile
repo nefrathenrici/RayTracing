@@ -1,6 +1,6 @@
-# Lazy makefile for compiling main.cpp
+# Lazy makefile for compiling main
 CXXFLAGS = -g -std=c++1z -pedantic -Wall -Wextra
-CXX = clang++
+CXX = g++
 OBJS := main.o \
 		aabb.o \
 		color.o \
@@ -12,12 +12,12 @@ OBJS := main.o \
 		ray.o \
 		sphere.o \
 		texture.o \
-		vec3.o		
+		vec3.o
 
 all: main
 
 main: $(OBJS)
-	$(CXX) $(CXXFLAGS) *.o -o main
+	$(CXX) $(CXXFLAGS) $(OBJS) -o main
 
 main.o: *.cpp *.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
