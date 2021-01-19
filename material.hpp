@@ -1,7 +1,7 @@
 #ifndef MATERIAL_HPP_
 #define MATERIAL_HPP_
 
-#include "util.hpp"
+#include "texture.hpp"
 #include "hittable.hpp"
 
 class material {
@@ -12,10 +12,14 @@ class material {
 class lambertian : public material {
     public:
         lambertian(const color& a);
+        
+        lambertian(shared_ptr<texture> a);
+
         virtual ~lambertian() = default;
 
         bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered) const;
-        color albedo;
+
+        shared_ptr<texture> albedo;
 };
 
 class metal : public material {
@@ -32,7 +36,7 @@ class metal : public material {
 class dielectric : public material {
     public:
         dielectric(double index_of_refraction);
-        ~dielectric() = default;
+        virtual ~dielectric() = default;
 
         bool scatter(
             const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
@@ -43,5 +47,12 @@ class dielectric : public material {
     private:
         static double reflectance(double cosine, double ref_idx);
 };
+
+// Lights - in progress
+
+// class diffuse_light : public material {
+//     public:
+
+// }
 
 #endif  // MATERIAL_HPP_

@@ -1,4 +1,4 @@
-// Code for the basic vector class. Will be used for rays, colors, and points.
+// Code for the basic vector class. Will be used for rays, colors, points, and math.
 
 #ifndef VEC3_HPP_
 #define VEC3_HPP_

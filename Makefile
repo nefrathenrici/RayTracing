@@ -1,8 +1,9 @@
-# Simple makefile for compiling main.cpp
+# Lazy makefile for compiling main.cpp
 CXXFLAGS = -g -std=c++1z -pedantic -Wall -Wextra
 CXX = clang++
 OBJS := main.o \
 		aabb.o \
+		color.o \
 		bvh.o \
 		camera.o \
 		hittable.o \
@@ -10,6 +11,7 @@ OBJS := main.o \
 		material.o \
 		ray.o \
 		sphere.o \
+		texture.o \
 		vec3.o		
 
 all: main
@@ -22,6 +24,9 @@ main.o: *.cpp *.hpp
 
 aabb.o: aabb.cpp aabb.hpp
 	$(CXX) $(CXXFLAGS) -c aabb.cpp
+
+color.o: color.cpp color.hpp
+	$(CXX) $(CXXFLAGS) -c color.cpp
 
 bvh.o: bvh.cpp bvh.hpp
 	$(CXX) $(CXXFLAGS) -c bvh.cpp
@@ -46,6 +51,9 @@ sphere.o: sphere.cpp sphere.hpp
 
 vec3.o: vec3.cpp vec3.hpp
 	$(CXX) $(CXXFLAGS) -c vec3.cpp
+
+texture.o: texture.cpp texture.hpp
+	$(CXX) $(CXXFLAGS) -c texture.cpp
 
 clean:
 	rm -f *o main
