@@ -10,6 +10,7 @@ OBJS := main.o \
 		hittable_list.o \
 		material.o \
 		ray.o \
+		rect.o \
 		sphere.o \
 		texture.o \
 		vec3.o
@@ -45,6 +46,9 @@ material.o: material.cpp material.hpp
 
 ray.o: ray.cpp ray.hpp
 	$(CXX) $(CXXFLAGS) -c ray.cpp
+
+rect.o: rect.cpp rect.hpp
+	$(CXX) $(CXXFLAGS) -c rect.cpp
 
 sphere.o: sphere.cpp sphere.hpp
 	$(CXX) $(CXXFLAGS) -c sphere.cpp

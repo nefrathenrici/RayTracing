@@ -5,6 +5,7 @@
 #include "hittable_list.hpp"
 #include "material.hpp"
 #include "sphere.hpp"
+#include "rect.hpp"
 #include "ray.hpp"
 #include "util.hpp"
 color ray_color(const ray& r, const color& background, const hittable& world, int depth) {
@@ -62,14 +63,33 @@ hittable_list test_scene() {
     return world;
 }
 
+hittable_list rect_light() {
+    hittable_list world;
+    auto ground_checker = make_shared<checker>(
+                                            color(0.2, 0.2, 0.2),
+                                            color(0.7, 0.7, 0.7));
+    world.add(make_shared<sphere>(
+                                point3( 0.0, -1000.5, 0.0), 
+                                1000.0, 
+                                make_shared<lambertian>(ground_checker)));
+    
+    world.add(make_shared<sphere>(point3(0,0,0),0.5,make_shared<lambertian>(
+                                                    color(0.5, 0.5, 0.5))));
+    world.add(make_shared<rect>(-0.5,0.5,-.5,0.5,1.5, make_shared<diffuse_light>(color(4,4,4))));
+    world.add(make_shared<rect>(-0.5,0.5,-.5,0.5,1.50011, make_shared<lambertian>(
+                                                    color(0.5, 0.5, 0.5))));
+
+    return world;
+}
+
 // Render
 int main() {
 
     // Camera and Render Settings
-    const auto aspect_ratio = 3.0 / 2.0;
-    const int image_width = 300;
+    const auto aspect_ratio = 1.6/0.9;
+    const int image_width = 800;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 1000;
+    const int samples_per_pixel = 5000;
     const int max_depth = 50;
 
     // Prep world
@@ -81,8 +101,8 @@ int main() {
     double aperture;
     color background;
 
-    switch (0) {
-        // Just one scene currently
+    switch (1) {
+        // Just one scene
         default:
             world = test_scene();
             // Camera
@@ -92,6 +112,15 @@ int main() {
             dist_to_focus = (lookfrom-lookat).length();
             aperture = 0.2;
             background = color(0.5,0.5,0.5);
+        
+        case 1:
+            world = rect_light();
+            lookfrom = point3(-8,0.5,0);
+            lookat = point3(0,0,0);
+            vup = vec3(0, 1, 0);
+            dist_to_focus = (lookfrom-lookat).length();
+            aperture = 0.01;
+            background = color(0.05,0.05,0.05);
         
     }    
 

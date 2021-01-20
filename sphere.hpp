@@ -3,7 +3,6 @@
 
 #include <memory>
 #include "hittable.hpp"
-#include "util.hpp"
 
 class sphere : public hittable {
     public:
