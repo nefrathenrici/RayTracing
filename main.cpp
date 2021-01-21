@@ -6,6 +6,7 @@
 #include "material.hpp"
 #include "sphere.hpp"
 #include "rect.hpp"
+#include "triangle.hpp"
 #include "ray.hpp"
 #include "util.hpp"
 color ray_color(const ray& r, const color& background, const hittable& world, int depth) {
@@ -57,6 +58,10 @@ hittable_list test_scene() {
     world.add(make_shared<sphere>(point3(0.5,0,0),0.5,sphere_material_b));
 
     world.add(make_shared<sphere>(point3(1.5,0,0),0.5,make_shared<dielectric>(0.7)));
+    // Triangles
+    world.add(make_shared<triangle>(point3(2,0.5,0),point3(2,0.5,1),point3(2,1.5,1),sphere_material_b));
+    world.add(make_shared<triangle>(point3(-2.5,-0.5,-0.5),point3(-0.5,-0.5,-0.5),point3(-0.5,-0.5,-2.5),
+                                    make_shared<metal>(color(0.9,0.3,0.3),0.3)));
 
     world.add(make_shared<sphere>(point3(0,6,0),4,make_shared<diffuse_light>(color(2,2,2))));
 
@@ -82,17 +87,34 @@ hittable_list rect_light() {
     return world;
 }
 
+hittable_list triangle_test() {
+    hittable_list world;
+
+    world.add(make_shared<triangle>(point3(0,0,0),point3(0,0,1),point3(0,1,0),make_shared<lambertian>(color(0.0,.9,0.3))));
+    world.add(make_shared<triangle>(point3(0,-0.5,0),point3(0.5,0.5,1),point3(0,1,0),make_shared<lambertian>(color(0.0,.9,0.9))));
+    
+    auto ground_checker = make_shared<checker>(
+                                            color(0.2, 0.2, 0.2),
+                                            color(0.7, 0.7, 0.7));
+    world.add(make_shared<sphere>(
+                                point3( 0.0, -1000.5, 0.0), 
+                                1000.0, 
+                                make_shared<lambertian>(ground_checker)));
+    return world;
+}
+
 // Render
 int main() {
 
     // Camera and Render Settings
     const auto aspect_ratio = 1.6/0.9;
-    const int image_width = 800;
+    const int image_width = 500;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 5000;
+    const int samples_per_pixel = 100;
     const int max_depth = 50;
 
     // Prep world
+    int scene = 0;
     hittable_list world;
     point3 lookfrom;
     point3 lookat;
@@ -101,17 +123,8 @@ int main() {
     double aperture;
     color background;
 
-    switch (1) {
+    switch (scene) {
         // Just one scene
-        default:
-            world = test_scene();
-            // Camera
-            lookfrom = point3(-6,3,-6);
-            lookat = point3(0,0,0);
-            vup = vec3(0, 1, 0);
-            dist_to_focus = (lookfrom-lookat).length();
-            aperture = 0.2;
-            background = color(0.5,0.5,0.5);
         
         case 1:
             world = rect_light();
@@ -121,8 +134,30 @@ int main() {
             dist_to_focus = (lookfrom-lookat).length();
             aperture = 0.01;
             background = color(0.05,0.05,0.05);
+            break;
         
-    }    
+        case 2:
+            world = triangle_test();
+            lookfrom = point3(-4,0,0);
+            lookat = point3(0,0,0);
+            vup = vec3(0, 1, 0);
+            dist_to_focus = (lookfrom-lookat).length();
+            aperture = 0.01;
+            background = color(0.3,0.3,0.3);
+            break;
+
+        default:
+            world = test_scene();
+            // Camera
+            lookfrom = point3(-6,2,-6);
+            lookat = point3(0,0,0);
+            vup = vec3(0, 1, 0);
+            dist_to_focus = (lookfrom-lookat).length();
+            aperture = 0.2;
+            background = color(0.8,0.8,0.8);
+            break;
+        
+    }
 
     // Set camera
     camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture, dist_to_focus);

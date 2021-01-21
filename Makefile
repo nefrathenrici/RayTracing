@@ -13,12 +13,13 @@ OBJS := main.o \
 		rect.o \
 		sphere.o \
 		texture.o \
+		triangle.o \
 		vec3.o
 
 all: main
 
 main: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o main
+	$(CXX) $(CXXFLAGS) $(OBJS) -o main -O3
 
 main.o: *.cpp *.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
@@ -58,6 +59,9 @@ vec3.o: vec3.cpp vec3.hpp
 
 texture.o: texture.cpp texture.hpp
 	$(CXX) $(CXXFLAGS) -c texture.cpp
+
+triangle.o: triangle.cpp triangle.hpp
+	$(CXX) $(CXXFLAGS) -c triangle.cpp
 
 clean:
 	rm -f *o main

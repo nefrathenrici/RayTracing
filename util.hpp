@@ -44,4 +44,21 @@ inline double clamp(double x, double min, double max) {
     return x;
 }
 
+inline void min_max(double a, double b, double c, double& min, double& max) {
+    // Finds min and max of 3 doubles - used for computing bounding box for triangle
+    if ( a < b ) {
+        min = a;
+        max = b;
+    } else {
+        min = b;
+        max = a;
+    }
+    // 
+    if ( c < min )
+        min = c;
+    else if ( c > max )
+        max = c;
+}
+
 #endif  // UTIL_HPP_
+

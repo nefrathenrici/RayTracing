@@ -7,7 +7,7 @@ rect::rect( double _x0, double _x1, double _y0, double _y1, double _k, shared_pt
 bool rect::hit(const ray& r, double t_min, double t_max, hit_record& rec) const {
     double t = (k-r.origin().z()) / r.direction().z();
     if (t < t_min || t > t_max)
-        // Ray doesn't time 
+        // Ray doesn't fall within t_min/max range 
         return false;
 
     double x = r.origin().x() + t*r.direction().x();

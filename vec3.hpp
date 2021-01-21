@@ -156,4 +156,14 @@ inline vec3 random_in_unit_disk() {
     }
 }
 
+inline double determinant3(vec3 c0, vec3 c1, vec3 c2) {
+    // 3x3 determinant of 3 column vec3s - using diagonal method
+    return  (c0.x() *c1.y() * c2.z()) +
+            (c1.x() *c2.y() * c0.z()) +
+            (c2.x() *c0.y() * c1.z()) -
+            (c2.x() *c1.y() * c0.z()) -
+            (c0.x() *c2.y() * c1.z()) -
+            (c1.x() *c0.y() * c2.z());
+}
+
 #endif  // VEC3_HPP_
